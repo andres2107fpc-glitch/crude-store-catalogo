@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Catálogo Crude Store</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#161616">
+<meta name="description" content="Catálogo mayorista Crude Store: fundas MagSafe, ventosas, cases de cargador, AirPods y más. Arma tu pedido y envíalo por WhatsApp.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: catálogo en tarjetas con barra de pedido fija; marca Crude Store (negro, lima, blanco) */
+:root{
+  --bg:#161616; --surface:#202020; --raised:#2a2a2a; --line:#363636;
+  --fg:#f5f5f0; --muted:#a9a9a4; --lime:#daff00; --lime-ink:#161616; --warn:#ffb020;
+  --display:"Bricolage Grotesque","Trebuchet MS",sans-serif; --body:"DM Sans",Calibri,system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.45 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 96px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1120px;margin:0 auto}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
+header img{height:40px;width:auto;display:block}
+.contact{text-align:right;font-size:12px;color:var(--muted);line-height:1.3}
+.contact b{display:block;color:var(--lime);font-size:14px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+h1{font:800 clamp(30px,7vw,52px)/1.02 var(--display);margin:28px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--lime)}
+.rules{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;padding:0;list-style:none}
+.rules li{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--fg)}
+.rules b{color:var(--lime);font-weight:700}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 14px;scrollbar-width:thin}
+.chip{flex:none;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:999px;padding:8px 14px;font:500 14px var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--lime);color:var(--lime-ink);border-color:var(--lime);font-weight:700}
+.chip:focus-visible,button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:16px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card.has{border-color:var(--lime)}
+.card .ph{aspect-ratio:4/3.4;background:#0e0e0e;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.body{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1;min-width:0}
+.cat{font:700 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
+.card h2{font:800 20px/1.1 var(--display);margin:0;text-wrap:balance}
+.desc{color:var(--muted);font-size:13.5px;margin:0}
+.feat{margin:0;padding-left:16px;color:var(--fg);font-size:13px}
+.feat li{margin:2px 0}
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
+.pr{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.pr small{display:block;color:var(--muted);font-size:11.5px}
+.pr strong{font:800 17px var(--display);font-variant-numeric:tabular-nums}
+.pr.deal{border-color:var(--lime)}
+.pr.deal strong{color:var(--lime)}
+.pr .off{font-size:11px;color:var(--lime-ink);background:var(--lime);border-radius:4px;padding:1px 5px;margin-left:4px;font-weight:700}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.step{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.step button{width:40px;height:40px;border:0;background:transparent;color:var(--fg);font:700 20px var(--body);cursor:pointer;border-radius:10px}
+.step button:hover{background:var(--raised)}
+.step input{width:46px;height:40px;border:0;background:transparent;color:var(--fg);text-align:center;font:700 16px var(--body);-moz-appearance:textfield;font-variant-numeric:tabular-nums}
+.step input::-webkit-inner-spin-button{display:none}
+.sub{font-size:12.5px;color:var(--muted);text-align:right;min-width:0}
+.sub b{display:block;color:var(--fg);font-size:15px;font-variant-numeric:tabular-nums}
+.pres{display:flex;flex-direction:column;gap:8px;margin-top:auto}
+.pres .row{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 8px 8px 10px}
+.pres .nm{min-width:0;font-size:13px}
+.pres .nm b{display:block;font-variant-numeric:tabular-nums}
+.pres .nm small{color:var(--muted)}
+section.order{margin:40px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
+section.order h2{font:800 28px/1.1 var(--display);margin:0 0 14px}
+.empty{color:var(--muted);margin:0}
+.line{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:12px 0;border-top:1px solid var(--line)}
+.line .t{min-width:0}
+.line .t b{display:block}
+.line .t span{color:var(--muted);font-size:13px}
+.line .amt{font:800 16px var(--display);font-variant-numeric:tabular-nums;white-space:nowrap}
+.line .note{grid-column:1/-1}
+.line .rm{grid-column:1/-1;justify-self:start;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:13px var(--body);padding:0}
+input.txt{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--fg);font:15px var(--body)}
+label.f{display:block;font-size:13px;color:var(--muted);margin:16px 0 6px}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:2px solid var(--lime);margin-top:6px;padding-top:14px}
+.total span{font-size:14px;color:var(--muted)}
+.total b{font:800 32px var(--display);color:var(--lime);font-variant-numeric:tabular-nums}
+.min{margin:12px 0 0;font-size:14px}
+.min.bad{color:var(--warn)}
+.bar{height:6px;border-radius:3px;background:var(--bg);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--lime);width:0;transition:width .25s}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:14px 20px;font:700 16px var(--body);text-decoration:none;cursor:pointer;border:1px solid var(--lime);min-height:48px}
+.btn.main{background:var(--lime);color:var(--lime-ink)}
+.btn.main[aria-disabled="true"]{background:var(--raised);color:var(--muted);border-color:var(--line);pointer-events:none}
+.btn.alt{background:transparent;color:var(--fg);border-color:var(--line)}
+.fine{margin:16px 0 0;font-size:13px;color:var(--muted)}
+.fine b{color:var(--fg)}
+.msg{margin-top:10px;font-size:13px;color:var(--lime);min-height:18px}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--surface);border-top:1px solid var(--lime);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.dock .in{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dock .in div{min-width:0;font-size:13px;color:var(--muted)}
+.dock .in b{display:block;font:800 20px var(--display);color:var(--fg);font-variant-numeric:tabular-nums}
+.dock .btn{padding:10px 16px;min-height:44px;font-size:15px}
+footer{margin:28px 0 0;color:var(--muted);font-size:12.5px}
+@media(prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+.sel{display:flex;flex-direction:column;gap:4px}
+.sel label{font-size:12px;color:var(--muted)}
+select{width:100%;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:15px var(--body);min-height:44px;appearance:auto}
+select.need{border-color:var(--warn)}
+.warn{font-size:12.5px;color:var(--warn);min-height:0;margin:0}
+details.dd{border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+details.dd>summary{list-style:none;cursor:pointer;padding:11px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:700;font-size:14px;min-height:44px}
+details.dd>summary::-webkit-details-marker{display:none}
+details.dd>summary::after{content:"▾";color:var(--lime);font-size:16px}
+details.dd[open]>summary::after{content:"▴"}
+details.dd .cnt{margin-left:auto;margin-right:6px;font-weight:700;font-size:12px;background:var(--lime);color:var(--lime-ink);border-radius:999px;padding:2px 8px}
+.opts{display:flex;flex-direction:column;max-height:340px;overflow-y:auto;border-top:1px solid var(--line)}
+.opt{display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line)}
+.opt:last-child{border-bottom:0}
+.opt .sw{flex:none;width:44px;height:44px;border-radius:8px;border:1px solid var(--line);background-size:cover;background-position:center;overflow:hidden}
+.opt .sw img{width:100%;height:100%;object-fit:cover;display:block}
+.opt .dot{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid #555;margin:7px}
+.opt .nm{flex:1;min-width:0;font-size:14px}
+.opt .step button{width:36px;height:36px}
+.opt .step input{width:38px;height:36px}
+.tot{font-size:13px;color:var(--muted)}
+.tot b{color:var(--fg)}
+.plist{display:flex;flex-direction:column;gap:6px}
+.plist div{display:flex;justify-content:space-between;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:13px}
+.plist b{font-variant-numeric:tabular-nums}
+.plist small{color:var(--muted)}
+.hint{font-size:12.5px;color:var(--muted);margin:0}
+.added{margin-top:12px;border-top:1px dashed var(--line);padding-top:8px}
+.added h3{font:700 12px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--lime);margin:0 0 4px}
+.ad{display:flex;gap:8px;align-items:center;font-size:13px;padding:5px 0;border-bottom:1px solid var(--line)}
+.ad span{flex:1;line-height:1.3}.ad em{font-style:normal;font-weight:800;color:var(--lime)}
+.ad button{border:0;background:transparent;color:var(--muted);font-size:16px;line-height:1;cursor:pointer;padding:4px 8px}
+.added .more{width:100%;margin-top:10px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;list-style:none;padding:0;margin:0 0 8px}
+.steps li{display:flex;flex-direction:column;gap:6px;font-size:12.5px;line-height:1.25;padding:10px;border:1px solid var(--line);border-radius:12px;background:#1b1b1b}
+.steps li.hl{border-color:var(--lime);background:#1d2200}.steps u{text-decoration:none;color:var(--lime);font-weight:800}
+.steps b{width:24px;height:24px;border-radius:50%;background:var(--lime);color:var(--lime-ink);display:grid;place-items:center;font:800 13px var(--display)}
+.minline{font-size:13px;color:var(--muted);margin:0 0 12px}.minline b{color:var(--lime)}
+.off{position:absolute;top:10px;right:10px;background:#fff;color:#111;border-radius:12px;padding:6px 10px;text-align:center;font:800 17px/1 var(--display);box-shadow:0 2px 10px rgba(0,0,0,.45);pointer-events:none}
+.off small{display:block;font:700 10px var(--body);margin-top:3px;letter-spacing:.02em}
+.dbar{display:block;height:5px;border-radius:9px;background:rgba(255,255,255,.16);margin-top:6px;overflow:hidden;max-width:210px}
+.dbar i{display:block;height:100%;width:0;background:var(--lime);transition:width .35s}
+.bump{animation:bump .35s}@keyframes bump{40%{transform:scale(1.14)}}
+.cf{position:fixed;top:-16px;width:9px;height:14px;border-radius:2px;z-index:60;pointer-events:none;animation:fall 1.4s ease-in forwards}
+@keyframes fall{to{transform:translateY(108vh) rotate(600deg)}}
+.sugg{margin:0 0 14px}.sugg h3{font:700 13px var(--body);color:var(--lime);margin:0 0 8px}.sugg div{display:flex;gap:8px;flex-wrap:wrap}
+.sugg button{border:1px solid var(--line);background:#1b1b1b;color:var(--fg);border-radius:999px;padding:9px 13px;font:600 13px var(--body);cursor:pointer}
+.save{color:var(--lime);font-weight:800;margin:6px 0}
+.card.flash{box-shadow:0 0 0 3px var(--lime);transition:box-shadow .3s}
+.card{animation:rise .4s both}@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+@media(prefers-reduced-motion:reduce){.card,.bump{animation:none}}
+.perk{background:#1d2200;border:1px solid var(--lime);color:var(--fg);border-radius:12px;padding:10px 14px;font-size:14px;margin:0 0 12px;line-height:1.35}.perk b{color:var(--lime)}
+.promo{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:34;background:#262626;border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:13.5px;line-height:1.35;max-width:560px;margin:0 auto}
+.promo b{color:var(--lime)}.promo.ok{background:#1d2200;border-color:var(--lime)}.promo.hot{background:var(--lime);color:var(--lime-ink);border-color:var(--lime);animation:pulse 1.4s ease-in-out infinite}.promo.hot b{color:var(--lime-ink)}
+.promo .bar{display:block;height:5px;border-radius:9px;background:rgba(255,255,255,.14);margin-top:8px;overflow:hidden}.promo .bar i{display:block;height:100%;background:var(--lime);transition:width .3s}.promo.hot .bar{background:rgba(0,0,0,.2)}.promo.hot .bar i{background:var(--lime-ink)}
+.nudge.ok{background:#1d2200;color:var(--lime);border:1px solid var(--lime)}.nudge.soft{background:transparent;color:var(--muted);border:1px dashed var(--line);font-weight:500}
+.nudge{margin-top:8px;background:var(--lime);color:var(--lime-ink);border-radius:10px;padding:8px 10px;font-weight:700;font-size:13px}
+@keyframes pulse{50%{transform:scale(1.015)}}@media(prefers-reduced-motion:reduce){.promo.hot{animation:none}}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(150px + env(safe-area-inset-bottom,0px));z-index:35;display:flex;gap:14px;align-items:center;background:#262626;border:1px solid var(--lime);border-radius:999px;padding:8px 8px 8px 18px;font-size:14px;white-space:nowrap}
+.toast button{border:0;border-radius:999px;background:var(--lime);color:var(--lime-ink);font:800 14px var(--body);padding:8px 14px;cursor:pointer}
+.card .ph{position:relative}.card .ph img{cursor:zoom-in}
+.from{position:absolute;left:10px;bottom:10px;background:var(--lime);color:var(--lime-ink);font:800 13px var(--display);border-radius:999px;padding:5px 11px;pointer-events:none;font-variant-numeric:tabular-nums}
+a.contact{text-decoration:none;color:var(--muted)}a.contact:hover b{text-decoration:underline}
+.search{margin:0 0 12px}.none{color:var(--muted);grid-column:1/-1;margin:8px 0}
+#lb{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
+#lb img{max-width:100%;max-height:88vh;border-radius:12px;display:block}
+#lb span{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:16px;font:700 28px var(--body);color:var(--fg)}
+.dock .in small{display:block;font-size:12px;color:var(--lime)}
+.gal{display:flex;gap:8px;padding:8px 14px 0;overflow-x:auto}
+.gt{flex:none;width:56px;height:56px;padding:0;border:2px solid var(--line);border-radius:8px;overflow:hidden;background:#0e0e0e;cursor:pointer}
+.gt.on{border-color:var(--lime)}
+.gt img{width:100%;height:100%;object-fit:cover;display:block}
+</style>
+
+<div class="wrap">
+<header>
+  <img src="img/logo.png" alt="Crude Store">
+  <a class="contact" id="wa-link" href="#" target="_blank" rel="noopener">¿Dudas? Escríbenos por WhatsApp<b id="wa-show"></b></a>
+</header>
+
+<h1>Arma tu pedido <em>mayorista</em></h1>
+<ol class="steps">
+  <li><b>1</b><span>Elige el modelo y color</span></li>
+  <li class="hl"><b>2</b><span>Suma <u>5 por producto</u> y paga menos</span></li>
+  <li><b>3</b><span>Envía tu pedido por WhatsApp</span></li>
+</ol>
+<p class="minline">Pedido mínimo <b id="min-show"></b> · Ventosas: paquetes cerrados</p>
+<input class="txt search" id="q" type="search" placeholder="Buscar producto (ej. funda, ventosa, AirPods)" aria-label="Buscar producto" autocomplete="off">
+<div class="chips" id="chips" role="group" aria-label="Categorías"></div>
+<div class="grid" id="grid"></div>
+
+<section class="order" id="pedido">
+  <h2>Tu pedido</h2>
+  <div id="lines"></div>
+  <div id="summary" hidden>
+    <div id="sugg" class="sugg" hidden></div>
+    <div class="total"><span>Total del pedido</span><b id="total">$0</b></div>
+    <p class="save" id="save-msg" hidden></p>
+    <p class="min" id="minmsg"></p>
+    <div class="bar"><i id="barfill"></i></div>
+    <label class="f" for="cliente">Tu nombre o el de tu negocio (opcional)</label>
+    <input class="txt" id="cliente" type="text" autocomplete="organization" placeholder="Ej. Accesorios La 80">
+    <div class="actions">
+      <a class="btn main" id="send" href="#" target="_blank" rel="noopener" aria-disabled="true">Enviar pedido por WhatsApp</a>
+      <button class="btn alt" id="copy" type="button">Copiar pedido</button>
+      <button class="btn alt" id="clear" type="button">Vaciar pedido</button>
+    </div>
+    <div class="msg" id="msg" role="status"></div>
+  </div>
+  <p class="fine">Este catálogo no pide datos personales ni pagos. Revisa que el pedido se abra en el WhatsApp <b id="wa-show2"></b>; los pagos y envíos se acuerdan solo con ese número. Si alguien te comparte otro número, no es de Crude Store.</p>
+</section>
+<footer>Catálogo mayorista 2026 · Crude Store · Los precios pueden cambiar sin previo aviso.</footer>
+</div>
+
+<div id="promo" class="promo" hidden></div>
+<div id="toast" class="toast" hidden><span>Pedido vaciado</span><button id="undo" type="button">Deshacer</button></div>
+<div id="lb" hidden><img alt=""><span aria-hidden="true">✕</span></div>
+
+<div class="dock"><div class="in">
+  <div>Tu pedido · <span id="d-count">0 productos</span><b id="d-total">$0</b><small id="d-min"></small><span class="dbar"><i id="d-bar"></i></span></div>
+  <a class="btn main" href="#pedido" id="d-go">Ver pedido</a>
+</div></div>
+
+<script>
+/* ===== CONFIGURACIÓN (editar aquí) ===== */
+const WHATSAPP_NUMBER = "573003620601";   // con indicativo de país, sin + ni espacios
+const MIN_ORDER = 120000;                 // pedido mínimo en pesos
+const PACK_FROM = 5;                      // desde cuántas unidades aplica el precio de paquete
+/* ======================================= */
+const PRODUCTS = [{"id": 1, "cat": "Fundas MagSafe", "name": "Jerry Case", "desc": "Funda transparente con marco de color y anillo MagSafe.", "bullets": ["Puntas reforzadas anti-golpes", "Compatible con MagSafe", "Varios colores por paquete", "iPhone 13/14, 15, 16 Pro Max, 17, 17 Pro y 17 Pro Max"], "unit": 11500, "pack": 11000, "img": "img/p01.jpg", "page": 3}, {"id": 2, "cat": "Fundas MagSafe", "name": "Funda premium brillante", "desc": "Acabado brillante con protección reforzada en las cámaras.", "bullets": ["MagSafe 100% funcional", "Material flexible y resistente", "Botones de metal y bordes de color", "Colores: naranja, plata, negro, dorado y azul"], "unit": 13500, "pack": 13000, "img": "img/p02.jpg", "page": 4}, {"id": 3, "cat": "Fundas MagSafe", "name": "Silicone Case MagSafe", "desc": "Funda de silicona con anillo MagSafe, en empaque individual.", "bullets": ["15 colores disponibles", "Anillo MagSafe integrado", "Empaque individual", "Referencia iPhone 17 Pro Max"], "unit": 10000, "pack": 9500, "img": "img/p03.jpg", "page": 5}, {"id": 4, "cat": "Fundas MagSafe", "name": "Funda translúcida", "desc": "Funda de marco translúcido con anillo MagSafe.", "bullets": ["Colores: humo, transparente, naranja y azul", "Anillo MagSafe", "Ventana amplia para la cámara"], "unit": 8000, "pack": 7000, "img": "img/p04.jpg", "page": 6}, {"id": 5, "cat": "Fundas MagSafe", "name": "Maga Case", "desc": "Funda con protección 360°, bordes de color y botones de metal.", "bullets": ["MagSafe 100% funcional", "Botones de metal", "Protección 360°", "Bordes de color", "13 al 17 Pro Max"], "unit": 14500, "pack": 14000, "img": "img/p05.jpg", "page": 7}, {"id": 6, "cat": "Fundas MagSafe", "name": "Funda MagSafe multicolor", "desc": "Funda con cámara reforzada en azul, naranja, negro y plata.", "bullets": ["Colores: azul, naranja, negro y plata", "Anillo MagSafe", "Cámara con marco reforzado", "13 al 17 Pro Max*"], "unit": 14500, "pack": 14000, "img": "img/p06.jpg", "page": 8}, {"id": 7, "cat": "Fundas MagSafe", "name": "Stone Case", "desc": "Funda apilable transparente con cámara reforzada.", "bullets": ["Diseño transparente y en color", "Cámara reforzada", "Compatible con MagSafe", "13/14 al 17 Pro Max"], "unit": 14500, "pack": 14000, "img": "img/p07.jpg", "video": "img/stone.mp4", "page": 9}, {"id": 8, "cat": "Fundas MagSafe", "name": "Case Cuero", "desc": "Funda de cuero con acabado premium y presentación en caja individual.", "bullets": ["Acabado en cuero, full calidad", "Presentación individual en caja", "Compatible con MagSafe", "10 colores: naranja, verde, negro, azul, morado, menta, lila, rosa, terracota y gris", "13 al 17 Pro Max · S25 y S25 Ultra"], "unit": 15900, "pack": 15050, "img": "img/p08.jpg", "page": 10}, {"id": 9, "cat": "Fundas con diseño", "name": "Shiny Case", "desc": "Referencias disponibles para esta línea de fundas.", "bullets": ["Más de 30 referencias", "Incluye iPhone y Android", "Consulta stock por modelo"], "unit": 9000, "pack": 8500, "img": "img/p09.jpg", "page": 11}, {"id": 10, "cat": "Fundas con diseño", "name": "Candy Case · Más diseños", "desc": "La misma línea Candy Case en más estampados y combinaciones.", "bullets": ["15 estampados disponibles", "Pedrería y aro MagSafe en todos", "Compatible con iPhone y Android"], "unit": 7500, "pack": 7000, "img": "img/p10.jpg", "page": 12}, {"id": 11, "cat": "Ventosas", "name": "Ventosa soporte", "desc": "Ventosa con soporte plegable para ver videos sin manos.", "bullets": ["Soporte plegable integrado", "Ventosas de agarre firme", "15 colores disponibles"], "unit": 7500, "pack": 7000, "img": "img/p11.jpg", "page": 13}, {"id": 12, "cat": "Ventosas", "name": "Ventosa adhesiva", "desc": "Ventosa de silicona con respaldo adhesivo para pegar en la funda.", "bullets": ["Chupa más grande para más agarre", "Respaldo adhesivo", "14 colores disponibles", "Paquetes x50, x100 y x200"], "unit": 4800, "pack": 4500, "img": "img/p12.jpg", "page": 14}, {"id": 13, "cat": "Cases de cargador", "name": "Case cargador 20W", "desc": "Protege el cargador y el cable con estilo.", "bullets": ["5 diseños: corazones, flores, brillos, moños", "Incluye puntas y espiral", "Acabado transparente con detalles"], "unit": 8500, "pack": 8000, "img": "img/p13.jpg", "page": 16}, {"id": 14, "cat": "Cases de cargador", "name": "Case cargador escarcha", "desc": "Acabado con brillos plateados y puntas a juego.", "bullets": ["Efecto escarcha con glitter", "Incluye puntas a juego", "Versión 20W"], "unit": 9000, "pack": 8500, "img": "img/p14.jpg", "page": 17}, {"id": 15, "cat": "Cases de cargador", "name": "Combo Coquette 20W", "desc": "Case de cargador con moños, perlas y detalles brillantes.", "bullets": ["Diseños coquette: moños, perlas, corazones", "Incluye espiral y puntas", "Versión 20W"], "unit": 9000, "pack": 8500, "img": "img/p15.jpg", "page": 18}, {"id": 16, "cat": "Cases de cargador", "name": "Case cubo + espiral", "desc": "Kit completo de protección para cargador y cable.", "bullets": ["Case cubo tipo nube", "Espiral iridiscente para el cable", "Puntas para proteger el conector", "Full protección"], "unit": 9000, "pack": 8500, "img": "img/p16.jpg", "page": 19}, {"id": 17, "cat": "Cases de cargador", "name": "Case cubo 40W", "desc": "Silicona con personajes, con espacio para guardar el cable.", "bullets": ["Diseños de personajes y marcas", "Silicona flexible", "Incluye espiral y mini funda"], "unit": 9500, "pack": 9000, "img": "img/p17.jpg", "page": 21}, {"id": 18, "cat": "Protectores AirPods", "name": "Protector lujo AirPods", "desc": "Serie 4, Pro 2 y Pro 3. Con argolla metálica incluida.", "bullets": ["18 diseños de lujo", "Acabado glitter y detalles 3D", "Moños, cerezas, estrellas y más"], "unit": 8500, "pack": 8000, "img": "img/p18.jpg", "page": 22}, {"id": 19, "cat": "Lentes de cámara", "name": "Lentes con personajes", "desc": "Protector de cámara 9H 3D. Nuevas tendencias, 10 diseños.", "bullets": ["Hello Kitty, Stitch, Mickey, Kuromi", "Snoopy, Winnie Pooh, Lotso y más", "Referencia iPhone 17 Pro Max"], "unit": 7500, "pack": 7000, "img": "img/p19.jpg", "page": 23}, {"id": 20, "cat": "Extras", "name": "Resinas de diseños únicos", "desc": "Charms decorativos para personalizar fundas y cases.", "bullets": ["Cientos de figuras y colores", "Osos, tortugas, frutas, estrellas", "Ideal para armar kits DIY"], "unit": 750, "pack": 700, "img": "img/p20.jpg", "page": 24}, {"id": 21, "cat": "Extras", "name": "Porta labial para celular", "desc": "Soporte de silicona para llevar tu labial siempre a la mano.", "bullets": ["9 colores disponibles", "Silicona suave", "Ideal para regalo"], "unit": 12500, "pack": 12000, "img": "img/p21.jpg", "page": 25}, {"id": 22, "cat": "Audífonos y cargadores", "name": "AirPods Pro 3", "desc": "Réplica alta gama con estuche de carga y cancelación de ruido (ANC).", "bullets": ["Cancelación activa de ruido (ANC)", "Estuche de carga incluido", "Presentación en caja individual"], "unit": 75000, "pack": 67500, "img": "img/p22.jpg", "page": 26}, {"id": 23, "cat": "Audífonos y cargadores", "name": "Cargador original", "desc": "Adaptador USB-C 20W en caja sellada, con opción de cable.", "bullets": ["Adaptador de pared USB-C 20W", "Cable USB-C 60W (1m) disponible", "Presentación en caja individual"], "unit": 35000, "pack": 27500, "img": "img/p23.jpg", "page": 27}, {"id": 24, "cat": "Audífonos y cargadores", "name": "Cargador genérico", "desc": "Kit económico: adaptador 20W y cable listos para vender.", "bullets": ["Adaptador USB-C 20W", "Cable USB-C a Lightning (1m)", "También disponible cable USB-C 60W"], "unit": 13500, "pack": 12700, "img": "img/p24.jpg", "page": 28}];
+
+const fmt = n => "$" + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const phone = () => { const d = WHATSAPP_NUMBER; return "+" + d.slice(0,2) + " " + d.slice(2,5) + " " + d.slice(5,8) + " " + d.slice(8); };
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+
+/* ---------- Opciones por producto ---------- */
+const M_ALL = ["iPhone 13","iPhone 13 Pro","iPhone 13 Pro Max","iPhone 14","iPhone 14 Pro","iPhone 14 Pro Max","iPhone 15","iPhone 15 Pro","iPhone 15 Pro Max","iPhone 16","iPhone 16 Pro","iPhone 16 Pro Max","iPhone 17","iPhone 17 Pro","iPhone 17 Pro Max"];
+const dot = (n,c) => ({n, c});
+const th = (n,t) => ({n, t});
+const COL_MULTI = [dot("Azul","#2f5fb0"),dot("Naranja","#f07a1f"),dot("Negro","#1b1b1b"),dot("Plata","#c9ccd1")];
+const CFG = {
+  1:{ctx:[{name:"Modelo",opts:["iPhone 13 / 14","iPhone 15","iPhone 16 Pro Max","iPhone 17","iPhone 17 Pro","iPhone 17 Pro Max"]}],variant:{name:"Color",opts:[dot("Celeste","#9fc8e8"),dot("Verde limón","#c6f02a"),dot("Rosa","#f2c1cc"),dot("Naranja","#f26b1d")]}},
+  2:{ctx:[{name:"Modelo",opts:M_ALL}],variant:{name:"Color",opts:[dot("Naranja","#f07a1f"),dot("Plata","#c9ccd1"),dot("Negro","#1b1b1b"),dot("Dorado","#d6b66a"),dot("Azul","#2f5fb0")]}},
+  3:{ctx:[{name:"Modelo",pre:true,opts:["iPhone 17 Pro Max"]}],variant:{name:"Color",opts:[th("Negro","img/v/si01.jpg"),th("Blanco","img/v/si02.jpg"),th("Gris grafito","img/v/si03.jpg"),th("Beige","img/v/si04.jpg"),th("Café claro","img/v/si05.jpg"),th("Menta","img/v/si06.jpg"),th("Rosa","img/v/si07.jpg"),th("Lila","img/v/si08.jpg"),th("Celeste","img/v/si09.jpg"),th("Amarillo","img/v/si10.jpg"),th("Fucsia","img/v/si11.jpg"),th("Azul noche","img/v/si12.jpg"),th("Vino","img/v/si13.jpg"),th("Café","img/v/si14.jpg"),th("Naranja","img/v/si15.jpg")]}},
+  4:{ctx:[{name:"Modelo",opts:M_ALL}],variant:{name:"Color",opts:[dot("Humo","#6d6d72"),dot("Transparente","#e6edf1"),dot("Naranja","#f07a1f"),dot("Azul","#2f5fb0")]}},
+  5:{ctx:[{name:"Modelo",opts:["iPhone 13","iPhone 13 Pro","iPhone 13 Pro Max","iPhone 14","iPhone 14 Pro","iPhone 14 Pro Max","iPhone 15","iPhone 15 Pro Max","iPhone 16","iPhone 16 Pro","iPhone 16 Pro Max","iPhone 17","iPhone 17 Pro","iPhone 17 Pro Max"]}],variant:{name:"Color",opts:[dot("Azul rey","#1f4fb4"),dot("Celeste","#9fc4e0"),dot("Naranja","#f07a1f"),dot("Dorado","#b99a76"),dot("Morado","#5b2d8a"),dot("Negro","#1b1b1b"),dot("Verde","#1b6b3a")]}},
+  6:{ctx:[{name:"Modelo",opts:M_ALL.concat(["iPhone 18 Pro","iPhone 18 Pro Max"])}],variant:{name:"Color",opts:[dot("Azul","#2a4a8a"),dot("Naranja","#f07a1f"),dot("Negro","#1b1b1b"),dot("Plata","#cfd2d6")]}},
+  7:{ctx:[{name:"Modelo",opts:M_ALL.concat(["iPhone 18 Pro","iPhone 18 Pro Max"])}],variant:{name:"Color",opts:[dot("Transparente","#e6edf1"),dot("Azul","#2a4a8a"),dot("Naranja","#f07a1f"),dot("Negro","#1b1b1b"),dot("Plata","#cfd2d6")]}},
+  8:{ctx:[{name:"Modelo",opts:M_ALL.concat(["Samsung S25","Samsung S25 Ultra"])}],variant:{name:"Color",opts:[th("Naranja","img/v/cu01.jpg"),th("Verde bosque","img/v/cu02.jpg"),th("Negro","img/v/cu03.jpg"),th("Azul","img/v/cu04.jpg"),th("Morado ciruela","img/v/cu05.jpg"),th("Terracota","img/v/cu06.jpg"),th("Menta","img/v/cu07.jpg"),th("Lila","img/v/cu08.jpg"),th("Rosa","img/v/cu09.jpg")]}},
+  9:{ctx:[{name:"Modelo",opts:["A33","A54","CAMON 40 PRO 5G","EDGE 50 FUSION","EDGE 60 FUSION","G85","G96","HNR 90 LITE","IP 11","IP 11 PROMAX","IP 12 PROMAX","IP 16","IP 17 PRO","MT 14T","MT 14T PRO","MT 15T","NOTE 14 5G","NOTE 14 PRO + 5G","RENO 13","RENO 14","RM NOTE 12 4G","RM NOTE 14 PRO 5G","S23FE","S25","S25 FE","S26","SAM A55","SPARK 40 PRO PLUS","SPARK 40C","X7A","X7B","X7C","X8A"]}],variant:{name:"Diseño",opts:[th("Winnie Pooh","img/v/sh01.jpg"),th("Flores sonrientes","img/v/sh02.jpg"),th("Flores rosa y cerezas","img/v/sh03.jpg"),th("Vacas","img/v/sh04.jpg"),th("Nubes azules","img/v/sh05.jpg"),th("Vacas y corazones rosa","img/v/sh06.jpg"),th("Ojos turcos morado","img/v/sh07.jpg"),th("Flores de línea","img/v/sh08.jpg"),th("Galaxia","img/v/sh09.jpg"),th("Astronautas","img/v/sh10.jpg")]}},
+  10:{ctx:[{name:"Modelo",opts:["IP 13/14","IP 16 PRO MAX","IP 17 PRO MAX","S26 ULTRA","EDGE 60 FUSION","X7D","X9D","RENO 15F","REDMI NOTE 15 4G/5G","REDMI NOTE 15 PRO 4G"]}],variant:{name:"Diseño",opts:[th("Nubes y arcoíris","img/v/ca01.jpg"),th("Ositos morados","img/v/ca02.jpg"),th("Cerditos rosa","img/v/ca03.jpg"),th("Margaritas","img/v/ca04.jpg"),th("Ojos y arcoíris","img/v/ca05.jpg"),th("Nubes y corazones azul","img/v/ca06.jpg"),th("Nubes rosa","img/v/ca07.jpg"),th("Corazones café","img/v/ca08.jpg"),th("Moños negros","img/v/ca09.jpg"),th("Vacas","img/v/ca10.jpg")]}},
+  11:{ctx:[{name:"Presentación",fixed:true,opts:[{n:"Unidad",price:7500},{n:"Paquete x5 cerrado",price:35000,per:"$7.000 c/u"}]}],variant:{name:"Color",opts:[th("Negro","img/v/vs01.jpg"),th("Blanco","img/v/vs02.jpg"),th("Rojo","img/v/vs03.jpg"),th("Azul marino","img/v/vs04.jpg"),th("Verde petróleo","img/v/vs05.jpg"),th("Morado","img/v/vs06.jpg"),th("Rosa claro","img/v/vs07.jpg"),th("Fucsia","img/v/vs08.jpg"),th("Menta","img/v/vs09.jpg"),th("Celeste","img/v/vs10.jpg"),th("Gris lila","img/v/vs11.jpg"),th("Rosa pastel","img/v/vs12.jpg"),th("Durazno","img/v/vs13.jpg"),th("Café grisáceo","img/v/vs14.jpg"),th("Lila claro","img/v/vs15.jpg")]}},
+  12:{ctx:[{name:"Presentación",fixed:true,opts:[{n:"Unidad",price:4800},{n:"Paquete x5 cerrado",price:22500,per:"$4.500 c/u"},{n:"Paquete x50 cerrado",price:200000,per:"$4.000 c/u"}]}],
+      variant:{name:"Color",opts:[th("Rosa","img/v/va01.jpg"),th("Menta","img/v/va02.jpg"),th("Rojo","img/v/va03.jpg"),th("Beige","img/v/va04.jpg"),th("Café","img/v/va05.jpg"),th("Blanco","img/v/va06.jpg"),th("Celeste","img/v/va07.jpg"),th("Azul","img/v/va08.jpg"),th("Naranja","img/v/va09.jpg"),th("Lila","img/v/va10.jpg"),th("Morado","img/v/va11.jpg"),th("Amarillo","img/v/va12.jpg"),th("Negro","img/v/va13.jpg"),th("Gris","img/v/va14.jpg")]}},
+  13:{variant:{name:"Diseño",opts:[th("Corazones plateados","img/v/c501.jpg"),th("Brillo plata","img/v/c502.jpg"),th("Flores","img/v/c503.jpg"),th("Brillo rosa","img/v/c504.jpg"),th("Moños rosa","img/v/c505.jpg")]}},
+  16:{variant:{name:"Diseño",opts:[th("Caritas rosa y azul","img/v/cc01.jpg"),th("Estrella turquesa","img/v/cc02.jpg"),th("Flores moradas","img/v/cc03.jpg"),th("Moño celeste","img/v/cc04.jpg"),th("Conejitos y café","img/v/cc05.jpg"),th("Moño fucsia","img/v/cc06.jpg"),th("Rojo con flores","img/v/cc07.jpg"),th("Corazones plateados","img/v/cc08.jpg"),th("Mariposa morada","img/v/cc09.jpg"),th("Moño amarillo","img/v/cc10.jpg"),th("Corazones rosa fuerte","img/v/cc11.jpg"),th("Alitas con strass","img/v/cc12.jpg"),th("Flores durazno","img/v/cc13.jpg"),th("Corazones celestes","img/v/cc14.jpg"),th("Fresas y ositos","img/v/cc15.jpg"),th("Corazón espejo morado","img/v/cc16.jpg"),th("Estrellas negras","img/v/cc17.jpg"),th("Estrellas rosa","img/v/cc18.jpg"),th("Corazones negros","img/v/cc19.jpg"),th("Perritos globo","img/v/cc20.jpg"),th("Corazones lila","img/v/cc21.jpg"),th("Brillos de colores","img/v/cc22.jpg"),th("Corazones amarillos","img/v/cc23.jpg"),th("Estrellas coral","img/v/cc24.jpg"),th("Cristal transparente","img/v/cc25.jpg"),th("Moños durazno","img/v/cc26.jpg"),th("Cerezas Happy","img/v/cc27.jpg")]}},
+  17:{variant:{name:"Personaje",opts:[th("Huella rosa","img/v/pj01.jpg"),th("My Melody","img/v/pj02.jpg"),th("DJ con gafas","img/v/pj03.jpg"),th("Daisy","img/v/pj04.jpg"),th("Lotso","img/v/pj05.jpg"),th("Susuwatari","img/v/pj06.jpg"),th("Piglet","img/v/pj07.jpg"),th("Stella Lou","img/v/pj08.jpg"),th("Heineken","img/v/pj09.jpg"),th("Minnie","img/v/pj10.jpg"),th("Control Xbox negro","img/v/pj11.jpg"),th("Calavera con gafas","img/v/pj12.jpg"),th("Barbie","img/v/pj13.jpg"),th("Cerdito rosa","img/v/pj14.jpg"),th("Astronauta","img/v/pj15.jpg"),th("Hello Kitty","img/v/pj16.jpg"),th("Sulley","img/v/pj17.jpg"),th("Capitán América","img/v/pj18.jpg"),th("Chip","img/v/pj19.jpg"),th("Kuromi","img/v/pj20.jpg"),th("Dinosaurio","img/v/pj21.jpg"),th("Control Xbox blanco","img/v/pj22.jpg"),th("Coca-Cola","img/v/pj23.jpg"),th("Aguacate","img/v/pj24.jpg"),th("Alien Toy Story","img/v/pj25.jpg"),th("Stitch","img/v/pj26.jpg"),th("Mario","img/v/pj27.jpg"),th("Venom","img/v/pj28.jpg")]}},
+  18:{ctx:[{name:"Referencia",opts:["Serie 4","Pro 2","Pro 3"]}],variant:{name:"Diseño",opts:[th("Estrellas de colores","img/v/ap01.jpg"),th("Corazón lila","img/v/ap02.jpg"),th("Moños blancos","img/v/ap03.jpg"),th("Cerezas rosa","img/v/ap04.jpg"),th("Confeti de colores","img/v/ap05.jpg"),th("Corazón verde","img/v/ap06.jpg"),th("Moños negros","img/v/ap07.jpg"),th("Corazones rosa","img/v/ap08.jpg"),th("Azul con moño y copos","img/v/ap09.jpg"),th("Corazón durazno","img/v/ap10.jpg"),th("Mariposas","img/v/ap11.jpg"),th("Estrellas negras","img/v/ap12.jpg"),th("Moños plateados","img/v/ap13.jpg"),th("Cerezas rojas","img/v/ap14.jpg"),th("Conejos y moños","img/v/ap15.jpg"),th("Huellitas rosa","img/v/ap16.jpg"),th("Tulipanes con brillo","img/v/ap17.jpg"),th("Moños rosa 3D","img/v/ap18.jpg")]}},
+  19:{variant:{name:"Diseño",opts:[th("Lotso","img/v/le01.jpg"),th("Snoopy","img/v/le02.jpg"),th("Tsum Tsum","img/v/le03.jpg"),th("Kuromi","img/v/le04.jpg"),th("Hello Kitty con lazos","img/v/le05.jpg"),th("Corazón rosado","img/v/le06.jpg"),th("Mickey","img/v/le07.jpg"),th("Stitch","img/v/le08.jpg"),th("Winnie Pooh","img/v/le09.jpg"),th("Hello Kitty","img/v/le10.jpg")]}},
+  21:{variant:{name:"Color",opts:[th("Ciruela","img/v/lb01.jpg"),th("Rosa","img/v/lb02.jpg"),th("Rojo","img/v/lb03.jpg"),th("Chocolate","img/v/lb04.jpg"),th("Rosa palo","img/v/lb05.jpg"),th("Fucsia","img/v/lb06.jpg"),th("Gris","img/v/lb07.jpg"),th("Nude","img/v/lb08.jpg"),th("Coral","img/v/lb09.jpg")]}}
+};
+/* Tarjetas agrupadas: un solo recuadro con selector de tipo */
+const GROUPS = [
+  {title:"Case de cargador", cat:"Cases de cargador", sel:"Protector de carga", members:[{id:13,label:"Case cargador 20W"},{id:14,label:"Escarcha 20W"},{id:15,label:"Combo Coquette 20W"},{id:16,label:"Cubo + espiral"}]},
+  {title:"Cargadores", cat:"Audífonos y cargadores", sel:"Tipo de cargador", members:[{id:23,label:"Original"},{id:24,label:"Genérico"}]}
+];
+const GAL = {12:["img/g12a.jpg","img/g12b.jpg","img/g12c.jpg"], 17:["img/g17a.jpg"]};
+PRODUCTS.forEach(p => { if (GAL[p.id]) p.gallery = [p.img].concat(GAL[p.id]);
+  if (p.name === "Candy Case · Más diseños") p.name = "Candy Case";
+  if (p.name === "Ventosa adhesiva") p.bullets = ["Chupa más grande para más agarre","Respaldo adhesivo","14 colores disponibles"]; });
+const prod = id => PRODUCTS.find(p => p.id === id);
+const cfg = p => CFG[p.id] || {};
+
+/* Tarjetas en orden del catálogo */
+const CARDS = []; const seen = {};
+PRODUCTS.forEach(p => {
+  const g = GROUPS.find(g => g.members.some(m => m.id === p.id));
+  if (g) { if (seen[g.title]) return; seen[g.title] = 1;
+    CARDS.push({cid:"g"+CARDS.length, title:g.title, cat:g.cat, sel:g.sel, members:g.members}); }
+  else CARDS.push({cid:"c"+CARDS.length, title:p.name, cat:p.cat, sel:null, members:[{id:p.id,label:p.name}]});
+});
+
+/* ---------- Estado ---------- */
+let lines = [];      // {pid, ctx:{}, v:"", qty, note}
+let filter = "Todos", query = "";
+const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+const matches = c => !query || query.split(/\s+/).every(w => norm(c.title+" "+c.cat+" "+c.members.map(m => m.label+" "+prod(m.id).name+" "+prod(m.id).desc+" "+prod(m.id).bullets.join(" ")).join(" ")).includes(w));
+const ui = {};       // cid -> {m, ctx:{pid:{dim:val}}, open:{}}
+try { const s = localStorage.getItem("crude-cart-v2"); if (s) lines = JSON.parse(s) || []; } catch(e) {}
+const save = () => { try { localStorage.setItem("crude-cart-v2", JSON.stringify(lines)); } catch(e) {} };
+const st = c => ui[c.cid] || (ui[c.cid] = {m:0, ctx:{}, open:false});
+const keyOf = (pid, ctx, v) => pid + "|" + Object.keys(ctx).sort().map(k => ctx[k]).join("/") + "|" + v;
+const lineKey = l => keyOf(l.pid, l.ctx, l.v);
+const unitsOf = pid => lines.filter(l => l.pid === pid).reduce((a,l) => a + l.qty, 0);
+
+function fixedPrice(p, ctx) {
+  const d = (cfg(p).ctx || []).find(x => x.fixed); if (!d) return null;
+  return d.opts.find(o => o.n === ctx[d.name]) || null;
+}
+function unitsPack(pid) { return lines.filter(l => l.pid === pid && !fixedPrice(prod(l.pid), l.ctx)).reduce((a, l) => a + l.qty, 0); }
+function packSavings() { return lines.reduce((a, l) => { const p = prod(l.pid), pr = priceOf(l); return pr.deal && !pr.fixed ? a + l.qty * (p.unit - p.pack) : a; }, 0); }
+function priceOf(l) {
+  const p = prod(l.pid), f = fixedPrice(p, l.ctx);
+  if (f) return {each:f.price, per:f.per || null, deal:false, fixed:true};
+  const deal = unitsOf(l.pid) >= PACK_FROM;
+  return {each: deal ? p.pack : p.unit, per:null, deal, fixed:false};
+}
+const lineTotal = l => l.qty * priceOf(l).each;
+function lineLabel(l) {
+  const p = prod(l.pid), parts = [];
+  Object.keys(l.ctx).forEach(k => parts.push(k === "Presentación" ? l.ctx[k] : k + ": " + l.ctx[k]));
+  if (l.v) { const v = cfg(p).variant; parts.push((v ? v.name : "Opción") + ": " + l.v); }
+  return parts.join(" · ");
+}
+
+/* ---------- Tarjetas ---------- */
+function swatch(o) {
+  if (o.t) return '<span class="sw"><img loading="lazy" src="'+o.t+'" alt=""></span>';
+  return '<span class="dot" style="background:'+o.c+'"></span>';
+}
+function stepper(attr, q, id) {
+  return '<div class="step"><button type="button" data-act="dec" '+attr+' aria-label="Quitar uno">−</button>' +
+    '<input type="number" inputmode="numeric" min="0" id="'+id+'" data-act="set" '+attr+' value="'+q+'" aria-label="Cantidad">' +
+    '<button type="button" data-act="inc" '+attr+' aria-label="Agregar uno">+</button></div>';
+}
+function qtyFor(c, v) {
+  const s = st(c), p = prod(c.members[s.m].id), ctx = s.ctx[p.id] || {};
+  const need = (cfg(p).ctx || []).some(d => ctx[d.name] === undefined);
+  if (need) return 0;
+  const l = lines.find(l => lineKey(l) === keyOf(p.id, ctx, v)); return l ? l.qty : 0;
+}
+const plural = n => /ón$/.test(n) ? n.slice(0,-2)+"ones" : /[aeiou]$/i.test(n) ? n+"s" : n+"es";
+function cardHTML(c) {
+  const s = st(c), mem = c.members[s.m], p = prod(mem.id), cf = cfg(p), ctx = s.ctx[p.id] || (s.ctx[p.id] = {});
+  (cf.ctx || []).forEach(d => { if ((d.fixed || d.pre) && ctx[d.name] === undefined) ctx[d.name] = d.opts[0].n || d.opts[0]; });
+  const has = unitsOf(p.id) > 0 || c.members.some(m => unitsOf(m.id) > 0);
+  const off = Math.round((1 - p.pack / p.unit) * 100);
+  let h = '<article class="card'+(has?' has':'')+'" id="'+c.cid+'" data-cid="'+c.cid+'"><div class="ph"><img loading="lazy" decoding="async" src="'+p.img+'" alt="'+esc(p.name)+'"><span class="from">Desde '+fmt(p.pack)+' c/u</span>'+(p.unit > p.pack && !(cfg(p).ctx || []).some(d => d.fixed) ? '<span class="off">−'+fmt(p.unit-p.pack)+' c/u<small>desde 5 uds.</small></span>' : '')+'</div>';
+  if (p.gallery) h += '<div class="gal">'+p.gallery.map((g,i) => '<button type="button" class="gt'+(i?'':' on')+'" data-src="'+g+'" aria-label="Ver foto '+(i+1)+'"><img loading="lazy" src="'+g+'" alt=""></button>').join("")+'</div>';
+  h += '<div class="body">';
+  h += '<div class="cat">'+c.cat+'</div><h2>'+esc(c.title)+'</h2>';
+  if (c.members.length > 1) {
+    h += '<div class="sel"><label for="m-'+c.cid+'">'+c.sel+'</label><select id="m-'+c.cid+'" data-act="member" data-cid="'+c.cid+'">' +
+      c.members.map((m,i) => '<option value="'+i+'"'+(i===s.m?' selected':'')+'>'+esc(m.label)+'</option>').join("") + '</select></div>';
+  }
+  h += '<p class="desc">'+esc(p.desc)+'</p><ul class="feat">'+p.bullets.map(b => '<li>'+esc(b)+'</li>').join("")+'</ul>';
+  const fixed = (cf.ctx || []).find(d => d.fixed);
+  if (fixed) {
+    h += '<div class="plist">'+fixed.opts.map(o => '<div><span>'+o.n+(o.per?' <small>('+o.per+')</small>':'')+'</span><b>'+fmt(o.price)+'</b></div>').join("")+'</div>';
+  } else {
+    h += '<div class="prices"><div class="pr"><small>1 a 4 unidades</small><strong>'+fmt(p.unit)+'</strong></div>' +
+      '<div class="pr deal"><small>Desde 5 uds. del producto, c/u</small><strong>'+fmt(p.pack)+'</strong><span class="off">−'+off+'%</span></div></div>';
+  }
+  if (p.video) h += '<details class="dd vid"><summary>Ver video del producto</summary><video controls playsinline preload="none" poster="'+p.img+'" src="'+p.video+'" style="width:100%;max-height:420px;display:block;background:#0e0e0e;border-top:1px solid var(--line)"></video></details>';
+  let miss = false;
+  (cf.ctx || []).forEach(d => {
+    const id = "x-"+c.cid+"-"+p.id+"-"+d.name.replace(/\W/g,"");
+    h += '<div class="sel"><label for="'+id+'">'+d.name+'</label><select id="'+id+'" data-act="ctx" data-cid="'+c.cid+'" data-dim="'+esc(d.name)+'">';
+    if (!d.fixed && !d.pre) h += '<option value="">Elige '+d.name.toLowerCase()+'…</option>';
+    h += d.opts.map(o => { const n = o.n || o; return '<option value="'+esc(n)+'"'+(ctx[d.name]===n?' selected':'')+'>'+esc(n)+'</option>'; }).join("") + '</select></div>';
+    if (ctx[d.name] === undefined) miss = true;
+  });
+  h += '<p class="warn" id="w-'+c.cid+'">'+(miss ? 'Elige las opciones de arriba para agregar cantidades.' : '')+'</p>';
+  if (cf.variant) {
+    const v = cf.variant, cnt = lines.filter(l => l.pid === p.id && l.v).reduce((a,l) => a + l.qty, 0);
+    h += '<details class="dd" data-act="open" data-cid="'+c.cid+'"'+(s.open?' open':'')+'><summary>'+plural(v.name)+' disponibles<span class="cnt" id="cnt-'+c.cid+'"'+(cnt?'':' hidden')+'>'+cnt+'</span></summary><div class="opts">';
+    h += v.opts.map((o,i) => '<div class="opt">'+swatch(o)+'<span class="nm">'+esc(o.n)+'</span>'+stepper('data-cid="'+c.cid+'" data-v="'+esc(o.n)+'"', qtyFor(c, o.n), 'q-'+c.cid+'-'+i)+'</div>').join("");
+    h += '</div></details>';
+  } else {
+    h += '<div class="row"><span class="tot">Cantidad</span>'+stepper('data-cid="'+c.cid+'" data-v=""', qtyFor(c, ""), 'q-'+c.cid)+'</div>';
+  }
+  const hint = p.cat === "Cases de cargador" && !cf.variant ? '<p class="hint">Indica el diseño que quieres en el detalle de tu pedido, abajo.</p>' : '';
+  h += hint + '<div class="added" id="ad-'+c.cid+'" hidden></div><div class="tot" id="t-'+c.cid+'"></div></div></article>';
+  return h;
+}
+function paintTot(c) {
+  const el = $("t-"+c.cid); if (!el) return;
+  const ids = c.members.map(m => m.id);
+  const ls = lines.filter(l => ids.includes(l.pid));
+  const u = ls.reduce((a,l) => a + l.qty, 0), t = ls.reduce((a,l) => a + lineTotal(l), 0);
+  const pm = prod(c.members[st(c).m].id), nu = unitsOf(pm.id), fx = (cfg(pm).ctx || []).some(d => d.fixed), left = PACK_FROM - nu;
+  const msg = fx || !nu ? '' : left <= 0 ? '<div class="nudge ok">✅ Precio de paquete activado en este producto</div>'
+    : left === 1 ? '<div class="nudge">⚡ ¡Te falta 1 unidad de este producto! Agrégala (cualquier color o modelo) y activa el precio de paquete.</div>'
+    : '<div class="nudge soft">Te faltan ' + left + ' unidades de este producto para el precio de paquete.</div>';
+  el.innerHTML = (u ? 'En tu pedido: <b>'+u+(u===1?' unidad':' unidades')+' · '+fmt(t)+'</b>' : '') + msg;
+  const p = prod(c.members[st(c).m].id), ad = $("ad-"+c.cid);
+  if (ad) { ad.hidden = !ls.length;
+    const dim = (cfg(p).ctx || []).find(x => !x.fixed && !x.pre);
+    ad.innerHTML = ls.length ? '<h3>Ya agregado a tu pedido</h3>' + ls.map(l => '<div class="ad"><span>'+esc((c.members.length > 1 ? prod(l.pid).name + (lineLabel(l) ? " · " : "") : "") + (lineLabel(l) || (c.members.length > 1 ? "" : prod(l.pid).name)))+'</span><em>× '+l.qty+'</em><button type="button" data-act="del" data-cid="'+c.cid+'" data-k="'+esc(lineKey(l))+'" aria-label="Quitar">✕</button></div>').join("") +
+      (dim ? '<button type="button" class="btn alt more" data-act="another" data-cid="'+c.cid+'">+ Agregar otro '+dim.name.toLowerCase()+'</button>' : '') : ''; }
+  const n = $("cnt-"+c.cid); if (n) { const k = lines.filter(l => l.pid === p.id && l.v).reduce((a,l) => a + l.qty, 0); n.textContent = k; n.hidden = !k; }
+  const card = $(c.cid); if (card) card.classList.toggle("has", u > 0);
+}
+function rerenderCard(c) { const old = $(c.cid); const t = document.createElement("div"); t.innerHTML = cardHTML(c); old.replaceWith(t.firstElementChild); paintTot(c); }
+function renderChips() {
+  const cats = ["Todos"].concat([...new Set(CARDS.map(c => c.cat))]);
+  $("chips").innerHTML = cats.map(c => '<button type="button" class="chip" data-cat="'+c+'" aria-pressed="'+(c===filter)+'">'+c+'</button>').join("");
+}
+function renderGrid() {
+  const list = CARDS.filter(c => (filter === "Todos" || c.cat === filter) && matches(c));
+  $("grid").innerHTML = list.length ? list.map(cardHTML).join("") : '<p class="none">No encontramos productos con esa búsqueda. Prueba con otra palabra o escríbenos por WhatsApp.</p>';
+  CARDS.forEach(paintTot);
+}
+
+/* ---------- Cantidades ---------- */
+function setLine(c, v, q) {
+  const s = st(c), p = prod(c.members[s.m].id), ctx = s.ctx[p.id] || {};
+  if ((cfg(p).ctx || []).some(d => ctx[d.name] === undefined)) {
+    const w = $("w-"+c.cid); if (w) w.textContent = "Primero elige las opciones de arriba (" + cfg(p).ctx.filter(d => ctx[d.name] === undefined).map(d => d.name.toLowerCase()).join(", ") + ").";
+    document.querySelectorAll("#"+c.cid+" select[data-act=ctx]").forEach(sel => sel.classList.toggle("need", !sel.value));
+    return false;
+  }
+  q = Math.max(0, Math.min(9999, q|0));
+  const u0 = unitsPack(p.id), s0 = orderSum();
+  const k = keyOf(p.id, ctx, v), i = lines.findIndex(l => lineKey(l) === k);
+  if (i >= 0) { if (q === 0) lines.splice(i,1); else lines[i].qty = q; }
+  else if (q > 0) lines.push({pid:p.id, ctx:Object.assign({}, ctx), v, qty:q, note:""});
+  const u1 = unitsPack(p.id), s1 = orderSum();
+  if ((u0 < PACK_FROM && u1 >= PACK_FROM) || (s0 < MIN_ORDER && s1 >= MIN_ORDER)) burst();
+  lastPid = p.id; save(); refresh(c); return true;
+}
+function refresh(c) {
+  const s = st(c);
+  document.querySelectorAll("#"+c.cid+" input[data-act=set]").forEach(i => { if (document.activeElement !== i) i.value = qtyFor(c, i.dataset.v); });
+  CARDS.forEach(paintTot); renderOrder();
+}
+
+/* ---------- Pedido ---------- */
+const COLOR_DOT = [[/transparente/,"⚪"],[/humo/,"🩶"],[/lila|morado|ciruela/,"🟣"],[/rosa|fucsia/,"🩷"],[/celeste/,"🩵"],[/azul/,"🔵"],[/verde|menta/,"🟢"],[/rojo|vino/,"🔴"],[/naranja|coral|durazno|terracota/,"🟠"],[/amarillo|dorado/,"🟡"],[/cafe|chocolate|beige|nude/,"🟤"],[/negro/,"⚫"],[/blanco/,"⚪"],[/gris|plata|grafito/,"🩶"]];
+const dotted = n => { const k = norm(n), m = COLOR_DOT.find(r => r[0].test(k)); return m ? m[1] + " " + n : n; };
+function orderText() {
+  const cl = $("cliente").value.trim(), LN = "━━━━━━━━━━━━━━━━", SEP = "┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈";
+  let t = "🛍️ *PEDIDO MAYORISTA · CRUDE STORE*\n" + LN + "\n";
+  if (cl) t += "👤 *Cliente:* " + cl + "\n";
+  t += "📅 *Fecha:* " + new Date().toLocaleDateString("es-CO") + "\n" + LN + "\n";
+  let sum = 0, units = 0;
+  lines.forEach((l, i) => {
+    const pr = priceOf(l), tot = lineTotal(l), p = prod(l.pid); sum += tot; units += l.qty;
+    t += "\n*" + (i + 1) + ". " + p.name + "*\n";
+    Object.keys(l.ctx).forEach(k => { t += "   ▫️ " + k + ": " + (k === "Color" ? dotted(l.ctx[k]) : l.ctx[k]) + "\n"; });
+    if (l.v) t += "   ▫️ " + ((cfg(p).variant || {}).name || "Opción") + ": " + ((cfg(p).variant || {}).name === "Color" ? dotted(l.v) : l.v) + "\n";
+    t += "   ▫️ Cantidad: *" + l.qty + "*\n";
+    t += "   ▫️ Precio: " + fmt(pr.each) + (pr.per ? " " + pr.per : " c/u") + (pr.deal ? " ✅ (precio de paquete)" : "") + "\n";
+    if ((l.note || "").trim()) t += "   📝 Detalle: " + l.note.trim() + "\n";
+    t += "   💰 Subtotal: *" + fmt(tot) + "*\n" + (i < lines.length - 1 ? SEP + "\n" : "");
+  });
+  return t + "\n" + LN + "\n" + (packSavings() > 0 ? "🎉 *Precio de paquete aplicado* · Ahorro: *" + fmt(packSavings()) + "*\n" : "") + "📦 Productos: " + lines.length + " · Unidades: " + units + "\n💵 *TOTAL: " + fmt(sum) + "*\n" + LN + "\n¡Gracias! Quedo atento a la confirmación 🙌";
+}
+let lastPid = 0;
+const orderSum = () => lines.reduce((a, l) => a + lineTotal(l), 0);
+function burst() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  try { navigator.vibrate && navigator.vibrate([40, 30, 60]); } catch (e) {}
+  const col = ["#d9ff00", "#ffffff", "#ff8a1f", "#38bdf8", "#ff6fa5"];
+  for (let i = 0; i < 34; i++) { const d = document.createElement("span"); d.className = "cf";
+    d.style.cssText = "left:" + Math.random() * 100 + "vw;background:" + col[i % 5] + ";animation-delay:" + Math.random() * .4 + "s;animation-duration:" + (1.1 + Math.random() * .9) + "s";
+    document.body.appendChild(d); setTimeout(() => d.remove(), 2600); }
+}
+function paintSugg() {
+  const el = $("sugg"); if (!lines.length) { el.hidden = true; return; }
+  const inOrd = c => lines.some(l => c.members.some(m => m.id === l.pid)), cats = new Set(CARDS.filter(inOrd).map(c => c.cat)),
+    rest = CARDS.filter(c => !inOrd(c)), pick = rest.filter(c => !cats.has(c.cat)).concat(rest.filter(c => cats.has(c.cat))).slice(0, 4);
+  if (!pick.length) { el.hidden = true; return; }
+  el.hidden = false; el.innerHTML = "<h3>Completa tu pedido 👇</h3><div>" + pick.map(c => '<button type="button" data-act="goto" data-cid="' + c.cid + '">+ ' + esc(c.title) + "</button>").join("") + "</div>";
+}
+function paintPromo() {
+  const el = $("promo"); let pid = lastPid && unitsOf(lastPid) > 0 ? lastPid : (lines.length ? lines[lines.length - 1].pid : 0);
+  const n = pid ? unitsPack(pid) : 0; if (!n) { el.hidden = true; return; }
+  const p = prod(pid), need = PACK_FROM - n, sv = lines.filter(l => l.pid === pid).reduce((a, l) => a + l.qty * (p.unit - p.pack), 0);
+  el.hidden = false; el.className = "promo" + (need <= 0 ? " ok" : need === 1 ? " hot" : "");
+  el.innerHTML = (need <= 0 ? '🎉 <b>¡Precio de paquete activado en ' + esc(p.name) + '!</b> Ahorras <b>' + fmt(sv) + '</b> en este producto.'
+    : need === 1 ? '⚡ <b>¡Te falta 1 unidad de ' + esc(p.name) + '!</b> Agrégala (cualquier color o modelo) y activa el precio de paquete: ahorrarías <b>' + fmt(sv) + '</b>.'
+    : esc(p.name) + ': llevas <b>' + n + '</b> · faltan <b>' + need + '</b> para el precio de paquete.')
+    + '<span class="bar"><i style="width:' + Math.min(100, n / PACK_FROM * 100) + '%"></i></span>';
+}
+function renderOrder() {
+  paintPromo();
+  const box = $("lines"); let sum = 0, units = 0;
+  if (!lines.length) box.innerHTML = '<p class="empty">Aún no agregas productos. Elige opciones y cantidades arriba y aquí verás el total.</p>';
+  else box.innerHTML = lines.map((l,i) => { const p = prod(l.pid), pr = priceOf(l), lab = lineLabel(l);
+    return '<div class="line"><div class="t"><b>'+esc(p.name)+'</b><span>'+(lab?esc(lab)+'<br>':'')+l.qty+' × '+fmt(pr.each)+(pr.per?' ('+pr.per+')':(pr.deal?' (precio de paquete)':''))+'</span></div><div class="amt">'+fmt(lineTotal(l))+'</div>' +
+      '<div class="note"><input class="txt" type="text" data-note="'+i+'" id="n-'+i+'" value="'+esc(l.note||"")+'" placeholder="Detalle extra: color o diseño (ej. el de moños negros)" aria-label="Detalle de '+esc(p.name)+'"></div>' +
+      '<button class="rm" type="button" data-rm="'+i+'">Quitar</button></div>'; }).join("");
+  lines.forEach(l => { sum += lineTotal(l); units += l.qty; });
+  $("summary").hidden = !lines.length; $("total").textContent = fmt(sum); $("d-total").textContent = fmt(sum);
+  $("d-count").textContent = units + (units === 1 ? " unidad" : " unidades");
+  const ok = sum >= MIN_ORDER, m = $("minmsg"), sv = packSavings();
+  $("d-bar").style.width = Math.min(100, sum / MIN_ORDER * 100) + "%"; $("d-bar").parentNode.classList.toggle("ok", ok);
+  $("save-msg").hidden = sv <= 0; $("save-msg").textContent = "🎉 Ahorras " + fmt(sv) + " con el precio de paquete";
+  paintSugg(); const dt = $("d-total"); dt.classList.remove("bump"); void dt.offsetWidth; dt.classList.add("bump");
+  m.className = "min" + (ok ? "" : " bad");
+  m.textContent = ok ? "Cumples el pedido mínimo de " + fmt(MIN_ORDER) + "." : "Te faltan " + fmt(MIN_ORDER - sum) + " para el pedido mínimo de " + fmt(MIN_ORDER) + ".";
+  $("d-min").textContent = !lines.length ? "" : ok ? "Pedido mínimo cumplido ✓" : "Faltan " + fmt(MIN_ORDER - sum) + " para el mínimo";
+  $("barfill").style.width = Math.min(100, sum / MIN_ORDER * 100) + "%";
+  const send = $("send"); send.setAttribute("aria-disabled", ok ? "false" : "true");
+  send.href = ok ? "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(orderText()) : "#";
+  $("copy").disabled = !lines.length;
+  CARDS.forEach(paintTot);
+}
+function linkOnly() { const s = $("send"); if (s.getAttribute("aria-disabled") === "false") s.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(orderText()); }
+
+/* ---------- Eventos ---------- */
+const cardOf = el => CARDS.find(c => c.cid === el.dataset.cid);
+document.addEventListener("click", e => {
+  const t = e.target.closest("button"); if (!t) return;
+  if (t.dataset.act === "goto") { query = ""; $("q").value = ""; filter = "Todos"; const ch = document.querySelector("#chips button"); if (ch) ch.click(); else renderGrid();
+    const el = $(t.dataset.cid); if (el) { el.scrollIntoView({behavior: "smooth", block: "start"}); el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 1600); } return; }
+  if (t.dataset.act === "del") { const c = CARDS.find(x => x.cid === t.dataset.cid), i = lines.findIndex(l => lineKey(l) === t.dataset.k); if (i >= 0) { lines.splice(i, 1); save(); refresh(c); } return; }
+  if (t.dataset.act === "another") { const c = CARDS.find(x => x.cid === t.dataset.cid), sc = st(c), p = prod(c.members[sc.m].id), d = (cfg(p).ctx || []).find(x => !x.fixed && !x.pre);
+    if (d) { delete (sc.ctx[p.id] || {})[d.name]; sc.open = true; rerenderCard(c);
+      const sel = document.querySelector("#" + c.cid + ' select[data-dim="' + d.name + '"]'); if (sel) { sel.scrollIntoView({block:"center", behavior:"smooth"}); sel.focus(); } } return; }
+  if (t.classList.contains("gt")) { const cd = t.closest(".card"); cd.querySelector(".ph img").src = t.dataset.src; cd.querySelectorAll(".gt").forEach(b => b.classList.toggle("on", b === t)); return; }
+  if (t.dataset.cat) { filter = t.dataset.cat; renderChips(); renderGrid(); return; }
+  if (t.dataset.rm !== undefined) { lines.splice(+t.dataset.rm, 1); save(); renderOrder(); CARDS.forEach(c => { const o = $(c.cid); if (o) refresh(c); }); return; }
+  if (t.dataset.act === "inc" || t.dataset.act === "dec") {
+    const c = cardOf(t), v = t.dataset.v, q = qtyFor(c, v); setLine(c, v, q + (t.dataset.act === "inc" ? 1 : -1));
+  }
+});
+document.addEventListener("change", e => {
+  const t = e.target, a = t.dataset.act; if (!a) return;
+  const c = cardOf(t);
+  if (a === "member") { st(c).m = +t.value; rerenderCard(c); }
+  else if (a === "ctx") { const s = st(c), pid = c.members[s.m].id; (s.ctx[pid] = s.ctx[pid] || {});
+    if (t.value === "") delete s.ctx[pid][t.dataset.dim]; else s.ctx[pid][t.dataset.dim] = t.value; rerenderCard(c); }
+  else if (a === "set") { if (!setLine(c, t.dataset.v, parseInt(t.value, 10) || 0)) t.value = 0; }
+});
+document.addEventListener("toggle", e => { const d = e.target; if (d.dataset && d.dataset.act === "open") st(cardOf(d)).open = d.open; }, true);
+document.addEventListener("input", e => {
+  if (e.target.dataset.note !== undefined) { const l = lines[+e.target.dataset.note]; if (l) { l.note = e.target.value; save(); linkOnly(); } }
+  if (e.target.id === "cliente") linkOnly();
+  if (e.target.id === "q") { query = norm(e.target.value.trim()); renderGrid(); }
+});
+document.addEventListener("click", e => { const im = e.target.closest(".ph img"); if (im) { $("lb").firstElementChild.src = im.src; $("lb").hidden = false; } });
+$("lb").addEventListener("click", () => { $("lb").hidden = true; });
+document.addEventListener("keydown", e => { if (e.key === "Escape") $("lb").hidden = true; });
+let backup = null, tmr = 0;
+const repaint = () => { renderOrder(); CARDS.forEach(c => { if ($(c.cid)) refresh(c); }); };
+$("clear").addEventListener("click", () => { if (!lines.length) return;
+  backup = JSON.parse(JSON.stringify(lines)); lines = []; lastPid = 0; save(); repaint();
+  $("toast").hidden = false; clearTimeout(tmr); tmr = setTimeout(() => { $("toast").hidden = true; backup = null; }, 8000); });
+$("undo").addEventListener("click", () => { if (backup) { lines = backup; backup = null; save(); repaint(); } $("toast").hidden = true; });
+$("wa-link").href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent("Hola Crude Store, tengo una pregunta sobre el catálogo mayorista");
+$("send").addEventListener("click", () => { $("msg").textContent = "Se abrirá WhatsApp con tu pedido. Revisa el mensaje y envíalo desde allí."; });
+$("copy").addEventListener("click", () => {
+  const t = orderText(), done = () => { $("msg").textContent = "Pedido copiado. Pégalo en el WhatsApp " + phone() + "."; };
+  const fb = () => { const ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); done(); } catch(e) { $("msg").textContent = "No se pudo copiar. Mantén presionado el pedido para copiarlo."; } ta.remove(); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, fb); else fb();
+});
+
+["wa-show","wa-show2"].forEach(id => $(id).textContent = phone());
+$("min-show").textContent = fmt(MIN_ORDER);
+lines = lines.filter(l => prod(l.pid)); 
+renderChips(); renderGrid(); renderOrder();
+</script>
