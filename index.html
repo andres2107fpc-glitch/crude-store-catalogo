@@ -229,7 +229,7 @@ a.contact{text-decoration:none;color:var(--muted)}a.contact:hover b{text-decorat
     </div>
     <ol class="how">
       <li>Completa tus datos y toca <b>Enviar pedido por WhatsApp</b>.</li>
-      <li>Para que lleguen las <b>fotos y colores</b>, toca <b>Excel e imagen del pedido</b> y compártelos en el mismo chat.</li>
+      <li id="how2">Para que lleguen las <b>fotos y colores</b>, toca <b>Excel e imagen del pedido</b> y compártelos en el mismo chat.</li>
     </ol>
     <div class="actions">
       <a class="btn main" id="send" href="#" target="_blank" rel="noopener" aria-disabled="true">Enviar pedido por WhatsApp</a>
@@ -239,7 +239,7 @@ a.contact{text-decoration:none;color:var(--muted)}a.contact:hover b{text-decorat
     </div>
     <div class="msg" id="msg" role="status"></div>
   </div>
-  <p class="fine">Tus datos se usan solo para tu factura y se envían únicamente por WhatsApp a Crude Store; esta página no los guarda en ningún servidor. Este catálogo no recibe pagos: revisa que el pedido se abra en el WhatsApp <b id="wa-show2"></b>; los pagos y envíos se acuerdan solo con ese número. Si alguien te comparte otro número, no es de Crude Store.</p>
+  <p class="fine">Tus datos se usan solo para tu factura y gestionar tu pedido: se envían a Crude Store por WhatsApp y, para registrar tu pedido, por correo seguro a Crude Store. Esta página no los publica ni los comparte con terceros. Este catálogo no recibe pagos: revisa que el pedido se abra en el WhatsApp <b id="wa-show2"></b>; los pagos y envíos se acuerdan solo con ese número. Si alguien te comparte otro número, no es de Crude Store.</p>
 </section>
 <footer>Catálogo mayorista 2026 · Crude Store · Los precios pueden cambiar sin previo aviso.</footer>
 </div>
@@ -272,6 +272,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 /* ===== CONFIGURACIÓN (editar aquí) ===== */
 const WHATSAPP_NUMBER = "573003620601";   // con indicativo de país, sin + ni espacios
 const MIN_ORDER = 120000;                 // pedido mínimo en pesos
+const ORDER_ENDPOINT = "";                // URL de Google Apps Script (ver LEEME_PEDIDOS_EXCEL.md). Vacío = sin envío automático
+const ORDER_KEY = "cambia-esta-clave";    // misma clave que en el script de Google
 const PACK_FROM = 5;                      // desde cuántas unidades aplica el precio de paquete
 /* ======================================= */
 const PRODUCTS = [{"id": 1, "cat": "Fundas MagSafe", "name": "Jerry Case", "desc": "Funda transparente con marco de color y anillo MagSafe.", "bullets": ["Puntas reforzadas anti-golpes", "Compatible con MagSafe", "Varios colores por paquete", "iPhone 13/14, 15, 16 Pro Max, 17, 17 Pro y 17 Pro Max"], "unit": 11500, "pack": 11000, "img": "img/p01.jpg", "page": 3}, {"id": 2, "cat": "Fundas MagSafe", "name": "Funda premium brillante", "desc": "Acabado brillante con protección reforzada en las cámaras.", "bullets": ["MagSafe 100% funcional", "Material flexible y resistente", "Botones de metal y bordes de color", "Colores: naranja, plata, negro, dorado y azul"], "unit": 13500, "pack": 13000, "img": "img/p02.jpg", "page": 4}, {"id": 3, "cat": "Fundas MagSafe", "name": "Silicone Case MagSafe", "desc": "Funda de silicona con anillo MagSafe, en empaque individual.", "bullets": ["15 colores disponibles", "Anillo MagSafe integrado", "Empaque individual", "Referencia iPhone 17 Pro Max"], "unit": 10000, "pack": 9500, "img": "img/p03.jpg", "page": 5}, {"id": 4, "cat": "Fundas MagSafe", "name": "Funda translúcida", "desc": "Funda de marco translúcido con anillo MagSafe.", "bullets": ["Colores: humo, transparente, naranja y azul", "Anillo MagSafe", "Ventana amplia para la cámara"], "unit": 8000, "pack": 7000, "img": "img/p04.jpg", "page": 6}, {"id": 5, "cat": "Fundas MagSafe", "name": "Maga Case", "desc": "Funda con protección 360°, bordes de color y botones de metal.", "bullets": ["MagSafe 100% funcional", "Botones de metal", "Protección 360°", "Bordes de color", "13 al 17 Pro Max"], "unit": 14500, "pack": 14000, "img": "img/p05.jpg", "page": 7}, {"id": 6, "cat": "Fundas MagSafe", "name": "Funda MagSafe multicolor", "desc": "Funda con cámara reforzada en azul, naranja, negro y plata.", "bullets": ["Colores: azul, naranja, negro y plata", "Anillo MagSafe", "Cámara con marco reforzado", "13 al 17 Pro Max*"], "unit": 14500, "pack": 14000, "img": "img/p06.jpg", "page": 8}, {"id": 7, "cat": "Fundas MagSafe", "name": "Stone Case", "desc": "Funda apilable transparente con cámara reforzada.", "bullets": ["Diseño transparente y en color", "Cámara reforzada", "Compatible con MagSafe", "13/14 al 17 Pro Max"], "unit": 14500, "pack": 14000, "img": "img/p07.jpg", "video": "img/stone.mp4", "page": 9}, {"id": 8, "cat": "Fundas MagSafe", "name": "Case Cuero", "desc": "Funda de cuero con acabado premium y presentación en caja individual.", "bullets": ["Acabado en cuero, full calidad", "Presentación individual en caja", "Compatible con MagSafe", "10 colores: naranja, verde, negro, azul, morado, menta, lila, rosa, terracota y gris", "13 al 17 Pro Max · S25 y S25 Ultra"], "unit": 15900, "pack": 15050, "img": "img/p08.jpg", "page": 10}, {"id": 9, "cat": "Fundas con diseño", "name": "Shiny Case", "desc": "Referencias disponibles para esta línea de fundas.", "bullets": ["Más de 30 referencias", "Incluye iPhone y Android", "Consulta stock por modelo"], "unit": 9000, "pack": 8500, "img": "img/p09.jpg", "page": 11}, {"id": 10, "cat": "Fundas con diseño", "name": "Candy Case · Más diseños", "desc": "La misma línea Candy Case en más estampados y combinaciones.", "bullets": ["15 estampados disponibles", "Pedrería y aro MagSafe en todos", "Compatible con iPhone y Android"], "unit": 7500, "pack": 7000, "img": "img/p10.jpg", "page": 12}, {"id": 11, "cat": "Ventosas", "name": "Ventosa soporte", "desc": "Ventosa con soporte plegable para ver videos sin manos.", "bullets": ["Soporte plegable integrado", "Ventosas de agarre firme", "15 colores disponibles"], "unit": 7500, "pack": 7000, "img": "img/p11.jpg", "page": 13}, {"id": 12, "cat": "Ventosas", "name": "Ventosa adhesiva", "desc": "Ventosa de silicona con respaldo adhesivo para pegar en la funda.", "bullets": ["Chupa más grande para más agarre", "Respaldo adhesivo", "14 colores disponibles", "Paquetes x50, x100 y x200"], "unit": 4800, "pack": 4500, "img": "img/p12.jpg", "page": 14}, {"id": 13, "cat": "Cases de cargador", "name": "Case cargador 20W", "desc": "Protege el cargador y el cable con estilo.", "bullets": ["5 diseños: corazones, flores, brillos, moños", "Incluye puntas y espiral", "Acabado transparente con detalles"], "unit": 8500, "pack": 8000, "img": "img/p13.jpg", "page": 16}, {"id": 14, "cat": "Cases de cargador", "name": "Case cargador escarcha", "desc": "Acabado con brillos plateados y puntas a juego.", "bullets": ["Efecto escarcha con glitter", "Incluye puntas a juego", "Versión 20W"], "unit": 9000, "pack": 8500, "img": "img/p14.jpg", "page": 17}, {"id": 15, "cat": "Cases de cargador", "name": "Combo Coquette 20W", "desc": "Case de cargador con moños, perlas y detalles brillantes.", "bullets": ["Diseños coquette: moños, perlas, corazones", "Incluye espiral y puntas", "Versión 20W"], "unit": 9000, "pack": 8500, "img": "img/p15.jpg", "page": 18}, {"id": 16, "cat": "Cases de cargador", "name": "Case cubo + espiral", "desc": "Kit completo de protección para cargador y cable.", "bullets": ["Case cubo tipo nube", "Espiral iridiscente para el cable", "Puntas para proteger el conector", "Full protección"], "unit": 9000, "pack": 8500, "img": "img/p16.jpg", "page": 19}, {"id": 17, "cat": "Cases de cargador", "name": "Case cubo 40W", "desc": "Silicona con personajes, con espacio para guardar el cable.", "bullets": ["Diseños de personajes y marcas", "Silicona flexible", "Incluye espiral y mini funda"], "unit": 9500, "pack": 9000, "img": "img/p17.jpg", "page": 21}, {"id": 18, "cat": "Protectores AirPods", "name": "Protector lujo AirPods", "desc": "Serie 4, Pro 2 y Pro 3. Con argolla metálica incluida.", "bullets": ["18 diseños de lujo", "Acabado glitter y detalles 3D", "Moños, cerezas, estrellas y más"], "unit": 8500, "pack": 8000, "img": "img/p18.jpg", "page": 22}, {"id": 19, "cat": "Lentes de cámara", "name": "Lentes con personajes", "desc": "Protector de cámara 9H 3D. Nuevas tendencias, 10 diseños.", "bullets": ["Hello Kitty, Stitch, Mickey, Kuromi", "Snoopy, Winnie Pooh, Lotso y más", "Referencia iPhone 17 Pro Max"], "unit": 7500, "pack": 7000, "img": "img/p19.jpg", "page": 23}, {"id": 20, "cat": "Extras", "name": "Resinas de diseños únicos", "desc": "Charms decorativos para personalizar fundas y cases.", "bullets": ["Cientos de figuras y colores", "Osos, tortugas, frutas, estrellas", "Ideal para armar kits DIY"], "unit": 750, "pack": 700, "img": "img/p20.jpg", "page": 24}, {"id": 21, "cat": "Extras", "name": "Porta labial para celular", "desc": "Soporte de silicona para llevar tu labial siempre a la mano.", "bullets": ["9 colores disponibles", "Silicona suave", "Ideal para regalo"], "unit": 12500, "pack": 12000, "img": "img/p21.jpg", "page": 25}, {"id": 22, "cat": "Audífonos y cargadores", "name": "AirPods Pro 3", "desc": "Réplica alta gama con estuche de carga y cancelación de ruido (ANC).", "bullets": ["Cancelación activa de ruido (ANC)", "Estuche de carga incluido", "Presentación en caja individual"], "unit": 75000, "pack": 67500, "img": "img/p22.jpg", "page": 26}, {"id": 23, "cat": "Audífonos y cargadores", "name": "Cargador original", "desc": "Adaptador USB-C 20W en caja sellada, con opción de cable.", "bullets": ["Adaptador de pared USB-C 20W", "Cable USB-C 60W (1m) disponible", "Presentación en caja individual"], "unit": 35000, "pack": 27500, "img": "img/p23.jpg", "page": 27}, {"id": 24, "cat": "Audífonos y cargadores", "name": "Cargador genérico", "desc": "Kit económico: adaptador 20W y cable listos para vender.", "bullets": ["Adaptador USB-C 20W", "Cable USB-C a Lightning (1m)", "También disponible cable USB-C 60W"], "unit": 13500, "pack": 12700, "img": "img/p24.jpg", "page": 28}];
@@ -479,9 +481,11 @@ const dotted = n => { const k = norm(n), m = COLOR_DOT.find(r => r[0].test(k)); 
 const absImg = path => { if (!path || /^data:/.test(path) || !/^https?:$/.test(location.protocol)) return ""; try { return new URL(path, location.href).href; } catch (e) { return ""; } };
 const lineOpt = l => ((cfg(prod(l.pid)).variant || {}).opts || []).find(o => o.n === l.v);
 const lineImg = l => { const o = lineOpt(l); return (o && o.t) || prod(l.pid).img; };
+let orderId = "";
+const newOrderId = () => { const n = new Date(), p = x => String(x).padStart(2, "0"); return "CS-" + String(n.getFullYear()).slice(2) + p(n.getMonth() + 1) + p(n.getDate()) + "-" + p(n.getHours()) + p(n.getMinutes()) + "-" + Math.random().toString(36).slice(2, 5).toUpperCase(); };
 function orderText(photos, compact) {
   const d = cust(), LN = "━━━━━━━━━━━━━━━━", SEP = "┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈", show = (v, f) => v || f;
-  let t = "🛍️ *PEDIDO MAYORISTA · CRUDE STORE*\n" + LN + "\n🧾 *DATOS PARA FACTURA*\n";
+  let t = "🛍️ *PEDIDO MAYORISTA · CRUDE STORE*\n" + (orderId ? "🔖 *Pedido N°:* " + orderId + "\n" : "") + LN + "\n🧾 *DATOS PARA FACTURA*\n";
   t += "👤 *Nombre / Razón social:* " + show(d.nombre, "—") + "\n🪪 *Documento:* " + (DOCS[d.tdoc] || "") + " " + show(d.doc, "—") + "\n";
   t += "📱 *Celular:* " + (phoneNorm(d.tel) ? "+57 " + phoneNorm(d.tel).replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3") : show(d.tel, "—")) + "\n✉️ *Correo:* " + show(d.mail, "—") + "\n";
   t += "📍 *Dirección:* " + show(d.dir, "—") + "\n🏘️ *Barrio y detalles:* " + show(d.det, "—") + "\n🏙️ *Ciudad:* " + show(d.ciu, "—") + (d.dep ? ", " + d.dep : "") + "\n";
@@ -731,7 +735,7 @@ async function orderXlsx() {
   const NC = 9, rows = [], merges = [], pics = [], media = {}, mediaList = [];
   const title = (r, txt, st, ht) => { let x = '<row r="' + r + '"' + (ht ? ' ht="' + ht + '" customHeight="1"' : '') + '>' + T(r, 0, txt, st); for (let c = 1; c < NC; c++) x += E(r, c, st); rows.push(x + '</row>'); merges.push("A" + r + ":" + CL(NC - 1) + r); };
   title(1, "CRUDE STORE · Pedido mayorista", 1, 32);
-  title(2, "Fecha: " + fecha + "   ·   WhatsApp Crude Store: " + phone(), 9);
+  title(2, (orderId ? "Pedido N° " + orderId + "   ·   " : "") + "Fecha: " + fecha + "   ·   WhatsApp Crude Store: " + phone(), 9);
   title(3, "Cliente: " + (d.nombre || "—") + (d.doc ? "   ·   " + (DOCS[d.tdoc] || "") + " " + d.doc : ""), 9);
   const heads = ["#", "Foto", "Producto", "Modelo / Referencia", "Color / Opción", "Cantidad", "Precio unitario", "Subtotal", "Notas"];
   rows.push('<row r="5" ht="24" customHeight="1">' + heads.map((h, i) => T(5, i, h, 2)).join("") + '</row>');
@@ -798,11 +802,30 @@ $("imgbtn").addEventListener("click", async () => {
   cap.hidden = false; $("lb").firstElementChild.src = up; $("lb").hidden = false; $("msg").textContent = "";
 });
 
+/* ---------- Envío automático del Excel a Crude Store ---------- */
+let upState = "";
+const toB64 = blob => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(",")[1]); r.onerror = no; r.readAsDataURL(blob); });
+async function uploadOrder() {
+  if (!ORDER_ENDPOINT || upState === "sending") return;
+  upState = "sending"; $("msg").textContent = "Registrando tu pedido " + orderId + "… envía el mensaje en WhatsApp.";
+  try {
+    const xl = await orderXlsx(), d = cust();
+    const body = JSON.stringify({key: ORDER_KEY, id: orderId, nombre: d.nombre, tel: d.tel, mail: d.mail, ciudad: d.ciu, total: lines.reduce((a, l) => a + lineTotal(l), 0), unidades: lines.reduce((a, l) => a + l.qty, 0), xlsx: await toB64(xl)});
+    const r = await fetch(ORDER_ENDPOINT, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body});
+    const j = await r.json(); if (!j || !j.ok) throw new Error("rechazado");
+    upState = "ok"; $("msg").textContent = "✅ Pedido " + orderId + " registrado en Crude Store. Solo falta enviar el mensaje en WhatsApp.";
+  } catch (err) {
+    console.error(err); upState = "";
+    $("msg").textContent = "No pudimos registrar el Excel automáticamente. Envía el mensaje de WhatsApp y toca «📎 Excel e imagen del pedido» para adjuntarlo.";
+  }
+}
+
 /* ---------- Enviar / copiar (con validación) ---------- */
 $("send").addEventListener("click", e => {
   if ($("send").getAttribute("aria-disabled") === "true") { e.preventDefault(); return; }
   if (!guard()) { e.preventDefault(); return; }
-  $("send").href = waUrl();
+  orderId = newOrderId(); upState = "";
+  $("send").href = waUrl(); uploadOrder();
   if (shortMsg === 3) { try { navigator.clipboard.writeText(orderText(false)); } catch (e) {} }
   $("msg").textContent = ["Se abrirá WhatsApp con tu pedido. Revisa el mensaje y envíalo desde allí. Luego adjunta el Excel y la imagen del pedido.",
     "Tu pedido es largo: se envía sin enlaces de fotos. Adjunta el Excel y la imagen del pedido.",
@@ -818,6 +841,7 @@ $("copy").addEventListener("click", () => {
 });
 
 
+if (ORDER_ENDPOINT) $("how2").innerHTML = "Tu pedido y su <b>Excel</b> llegan automáticamente a Crude Store. Solo debes enviar el mensaje en WhatsApp.";
 ["wa-show","wa-show2"].forEach(id => $(id).textContent = phone());
 $("min-show").textContent = fmt(MIN_ORDER);
 lines = lines.filter(l => prod(l.pid)); 
